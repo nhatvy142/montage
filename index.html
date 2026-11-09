@@ -163,7 +163,7 @@ section{position:relative;min-height:100vh;padding:120px clamp(20px,9vw,160px)}
 .tile{position:absolute;left:0;top:0;border-radius:9px;background-size:cover;background-color:#c3c4f7;backface-visibility:hidden;-webkit-backface-visibility:hidden;
   transform:var(--t);transition:transform .4s cubic-bezier(.2,.7,.2,1),box-shadow .4s,opacity .4s;box-shadow:0 10px 24px -12px rgba(21,22,138,.55),inset 0 0 0 1px rgba(255,255,255,.25);cursor:pointer;will-change:transform}
 .sphere.anim .tile{transition:none}
-#orbit.explore .sphere:not(.anim):not(.burst) .tile:hover{transform:var(--t) translateZ(60px) scale(1.12);box-shadow:0 24px 40px -14px rgba(21,22,138,.7);z-index:2}
+.sphere:not(.anim):not(.burst) .tile:hover{transform:var(--t) translateZ(60px) scale(1.12);box-shadow:0 24px 40px -14px rgba(21,22,138,.7);z-index:2}
 .tile.sel{opacity:0}
 .o-head{position:absolute;left:clamp(110px,15vw,240px);top:110px;font:400 clamp(38px,4.6vw,74px)/1 var(--serif);z-index:3;pointer-events:none;text-shadow:0 2px 24px rgba(246,244,252,.8)}
 .o-head .rot{height:1.05em}
@@ -195,21 +195,6 @@ section{position:relative;min-height:100vh;padding:120px clamp(20px,9vw,160px)}
   .o-head{left:22px;top:96px}.o-side{display:none}.o-copy{display:none}
   .o-foot{bottom:96px;right:22px}.o-count{top:84px;right:22px}
 }
-
-
-/* hero over universe background */
-.o-veil{position:absolute;inset:0;z-index:2;pointer-events:none;background:radial-gradient(ellipse 60% 48% at 50% 50%,rgba(246,244,252,.86),rgba(246,244,252,.55) 55%,rgba(246,244,252,.12) 100%);transition:opacity .8s}
-.o-hero{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;pointer-events:none;padding:0 20px;transition:opacity .7s,filter .7s,transform .9s cubic-bezier(.2,.7,.2,1)}
-.o-title{font:400 clamp(52px,10vw,168px)/.9 var(--serif);text-transform:uppercase;letter-spacing:-.015em;color:var(--blue-ink)}
-.o-title>span{display:block}
-.o-title .rot{height:.92em}.o-title .rot b{height:.92em;font-weight:400;font-style:italic;text-transform:none;color:var(--blue)}
-.o-sub{margin-top:30px;font:500 clamp(14px,1.2vw,17px)/1.5 var(--sans);max-width:460px;color:var(--blue-ink);opacity:.85}
-#orbit:not(.explore) .sphere{opacity:.9}
-#orbit .o-head,#orbit .o-side,#orbit .o-copy,#orbit .o-foot,#orbit .o-count{transition:opacity .6s;opacity:0}
-#orbit.explore .o-head,#orbit.explore .o-side,#orbit.explore .o-copy,#orbit.explore .o-foot,#orbit.explore .o-count{opacity:1}
-#orbit.explore .o-veil{opacity:0}
-#orbit.explore .o-hero{opacity:0;filter:blur(12px);transform:scale(1.08)}
-.o-pill em{font-style:normal}
 
 /* menu overlay */
 #menu{position:fixed;inset:0;z-index:60;background:var(--blue);color:#fff;display:flex;flex-direction:column;justify-content:center;padding:0 clamp(20px,9vw,160px);clip-path:inset(0 0 100% 0);transition:clip-path .8s cubic-bezier(.7,0,.2,1)}
@@ -278,18 +263,13 @@ section{position:relative;min-height:100vh;padding:120px clamp(20px,9vw,160px)}
   <!-- orbit -->
   <section id="orbit" data-theme="orbit" data-name="Universe">
     <div class="orbit-pin">
-      <div class="o-veil"></div>
-      <div class="o-hero">
-        <h1 class="o-title reveal"><span>Beauty,</span><span>that <span class="rot" id="rot1"><span><b>moves.</b><b>sells.</b><b>stays.</b><b>ships.</b><b>moves.</b></span></span></span></h1>
-        <p class="o-sub reveal">Montage. — a team with an aesthetic mindset, cutting film, form and image in Saigon.</p>
-      </div>
-      <h2 class="o-head"><em>Worlds</em><span>we have cut</span><small><i></i>Drag the world · tap a frame</small></h2>
+      <h1 class="o-head reveal"><em>Beauty,</em><span>that <span class="rot" id="rot1"><span><b>moves.</b><b>sells.</b><b>stays.</b><b>ships.</b><b>moves.</b></span></span></span><small><i></i>Drag the world · tap a frame</small></h1>
       <div class="o-side"><div><b>Film &amp; form</b>Packaging, motion, imagery</div><div><b>Built in Saigon</b>Cut for every screen</div></div>
       <div class="o-count" id="oCount">00 / 06</div>
       <div class="stage" id="stage"><div class="sphere" id="sphere"></div></div>
       <p class="o-copy">Montage. — a team with an aesthetic mindset, cutting film, form and image in Saigon. Every frame orbiting here is a project we have made.</p>
-      <div class="o-pill" id="oPill"><button id="oBtn" aria-label="Explore the work">+</button><em id="oPillA">Explore</em> <span id="oPillB">Step into the work</span></div>
-      <div class="o-foot"><em>Tap outside</em><span>to return</span></div>
+      <div class="o-pill" id="oPill"><button id="oBtn" aria-label="Open a random project">+</button>Explore <span>Spin the work</span></div>
+      <div class="o-foot"><em>Worlds</em><span>We Have Cut</span></div>
     </div>
   </section>
 
@@ -753,17 +733,14 @@ addEventListener('scroll',onScroll,{passive:true});onScroll();velLoop();
     setTimeout(()=>{card.classList.remove('show');card.style.opacity='';card.style.transform='';if(selIdx>=0)tiles[selIdx].el.classList.remove('sel');selIdx=-1;},450);
     burstT=0;snapY=snapX=null;vy=.06;pill.classList.remove('open');cnt.textContent='00 / '+pad(N);
   }
-  const pA=document.getElementById('oPillA'),pB=document.getElementById('oPillB');
-  function setExplore(on){sec.classList.toggle('explore',on);pA.textContent=on?'Open a frame':'Explore';pB.textContent=on?(innerWidth<820?'Tap outside to return':'Esc to return'):'Step into the work';}
-  sphere.addEventListener('click',e=>{const t=e.target.closest('.tile');if(!t||moved>8||burstT)return;e.stopPropagation();setExplore(true);show(+t.dataset.i);});
+  sphere.addEventListener('click',e=>{const t=e.target.closest('.tile');if(!t||moved>8||burstT)return;e.stopPropagation();show(+t.dataset.i);});
   card.addEventListener('click',hide);
-  stage.addEventListener('click',e=>{if(moved>8)return;if(burstT&&!e.target.closest('.o-card'))hide();else if(!e.target.closest('.tile')&&sec.classList.contains('explore'))setExplore(false);});
-  addEventListener('keydown',e=>{if(e.key!=='Escape')return;if(burstT)hide();else setExplore(false);});
+  stage.addEventListener('click',e=>{if(burstT&&!e.target.closest('.o-card'))hide();});
+  addEventListener('keydown',e=>{if(e.key==='Escape')hide();});
   document.getElementById('oBtn').addEventListener('click',()=>{if(burstT)return hide();
-    if(!sec.classList.contains('explore'))return setExplore(true);
     const front=tiles.map((T,i)=>({i,b:T.el.getBoundingClientRect()})).filter(o=>o.b.width>30&&Math.hypot(o.b.left+o.b.width/2-innerWidth/2,o.b.top+o.b.height/2-innerHeight/2)<Math.min(innerWidth,innerHeight)*.22);
     const pick=front.length?front[(Math.random()*front.length)|0].i:(Math.random()*tiles.length)|0;show(pick);});
-  addEventListener('scroll',()=>{const r=sec.getBoundingClientRect();if(r.bottom<innerHeight*.6){if(burstT)hide();setExplore(false);}},{passive:true});
+  addEventListener('scroll',()=>{if(burstT){const r=sec.getBoundingClientRect();if(r.bottom<innerHeight*.6)hide();}},{passive:true});
 })();
 
 /* menu */
